@@ -45,7 +45,7 @@ d3.json(queryUrl, function(data) {
   //console.log(data.features.geometry.coordinates);
   
   var coord = data.features
-  console.log("coord test" + coord);
+  console.log("coord test for variable coord");
   console.log(coord);
 
   testJson(data.features);
@@ -53,9 +53,10 @@ d3.json(queryUrl, function(data) {
 
 });
 function testJson(features) {
-        console.log(features);
+        console.log("baseline test");
+        console.log(features); // works
         console.log(`test 1${features.properties.place}`);
-        console.log(feature.geometry.coordinates);
+        console.log(Object.feature.geometry.coordinates);
 };
 
 
