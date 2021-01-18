@@ -48,7 +48,8 @@ d3.json(queryUrl, function(data) {
   console.log("coord test" + coord);
   console.log(coord);
   //console.log(coord.Feature.properties)
-
+  var canada = Object.values(coord.geometry.coordinates);
+  console.log(canada);
 
   circlePlot(coord);
 
@@ -77,13 +78,13 @@ d3.json(queryUrl, function(data) {
 function circlePlot(earthquakeData) {
 
     console.log(earthquakeData);
-    console.log(earthquakeData.features.geometry.coordinates);
+    console.log(features.properties);
     //console.log(Object.values(feature));
   
 };
 
 
-    // function(countries){
+    // function circPlot(countries){
     //     for (var i = 0; i < countries.length; i++) {
             
     //         // Conditionals for countries points
