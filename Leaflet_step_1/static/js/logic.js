@@ -26,7 +26,7 @@ d3.json(queryUrl, function(data) {
     //console.log(data.features.geometry.coordinates);
     //console.log(data.features.properties.place);
     createFeatures(data.features);
-    circleFeatures(data.features);
+    //circleFeatures(data.features);
 });
 
 
@@ -37,7 +37,7 @@ function createFeatures(earthquakeData) {
     function onEachFeature(feature, layer) {
         layer.bindPopup("<h3>" + (feature.properties.place) +
             "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
-
+        console.log(feature.geometry.coordinates)
     }
   
     // Create a GeoJSON layer containing the features array on the earthquakeData object
