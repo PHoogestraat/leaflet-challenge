@@ -2,7 +2,7 @@
 console.log("test connection")
 
 
-// Earthquake JSON URL
+// Earthquake JSON URL ###############################################################################################
 // significant earthquakes past 7 days
 //var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
 
@@ -15,26 +15,38 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/signif
 // all earthquakes past 30 days
 //var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 
-// Perform a GET request to the query URL
+// Earthquake JSON URL ###############################################################################################
+
+
+
+// Perform a GET request to the query URL   **** creates anyonmos function to store json data as data.features
 d3.json(queryUrl, function(data) {
     console.log(data.features);
+    
+    //console.log(data.features.geometry.coordinates);
+    //console.log(data.features.properties.place);
     createFeatures(data.features);
+    circleFeatures(data.features);
 });
 
-function createFeatures(earthquakeData) {
 
+function createFeatures(earthquakeData) {
+    
     // Define a function we want to run once for each feature in the features array
     // Give each feature a popup describing the place and time of the earthquake
     function onEachFeature(feature, layer) {
-      layer.bindPopup("<h3>" + (feature.properties.place) +
-        "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+        layer.bindPopup("<h3>" + (feature.properties.place) +
+            "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+
     }
   
     // Create a GeoJSON layer containing the features array on the earthquakeData object
     // Run the onEachFeature function once for each piece of data in the array
     var earthquakes = L.geoJSON(earthquakeData, {
-      onEachFeature: onEachFeature
+      onEachFeature: onEachFeature 
+    
     });
+
   
     // Sending our earthquakes layer to the createMap function
     createMap(earthquakes);
@@ -94,19 +106,51 @@ function createFeatures(earthquakeData) {
         // Create our map, giving it the streetmap and earthquakes layers to display on load
         var myMap = L.map("map", {
           center: [
-            42.655813, -92.824122 
+            42.574444444, -92.786666666
           ],
-          zoom: 5,
+          zoom: 4,
           layers: [streetmap, earthquakes]
         });
-      
+        
+        // Create a circle and pass in some initial options ---- for fun
+        L.circle([42.574444444, -92.786666666], {
+            color: "green",
+            fillColor: "green",
+            fillOpacity: 0.75,
+            radius: 500
+        }).addTo(myMap);
+
         // Create a layer control
         // Pass in our baseMaps and overlayMaps
         // Add the layer control to the map
         L.control.layers(baseMaps, overlayMaps, {
           collapsed: false
         }).addTo(myMap);
-      }
+    };
         
+// Loop through the cities array and create one marker for each city object
 
+
+function circleFeatures(xfeature) {
+    console.log(xfeature);
+    console.log(xfeature.geometry.coordinates);
+    var cord = []
+    var cordPop =[]
+    var actCord =[]
+    // cord = feature.geometry.coordinates
+    // cordPop = feature.geometry.coordinates.pop()
+    // actCord = feature.geometry.coordinates
+    // console.log("variable cordPop:" + cordPop);
+    // console.log("Desired Coordinates actCord:" + actCord)
+    //     for (var i = 0; i < cities.length; i++) {
+    //         L.circle(cities[i].location, {
+    //         fillOpacity: 0.75,
+    //         color: "white",
+    //         fillColor: "purple",
+    //         // Setting our circle's radius equal to the output of our markerSize function
+    //         // This will make our marker's size proportionate to its population
+    //         radius: markerSize(cities[i].population)
+    //         }).bindPopup("<h1>" + cities[i].name + "</h1> <hr> <h3>Population: " + cities[i].population + "</h3>").addTo(myMap);
+     
+};
 
