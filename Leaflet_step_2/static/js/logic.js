@@ -40,20 +40,26 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/signif
 // Perform a GET request to the query URL   **** creates anyonmos function to store json data as data.features
 d3.json(queryUrl, function(data) {
   var coord = [];
-  console.log(data.features);
-  
+
+
   //console.log(data.features.geometry.coordinates);
   
   var coord = data.features
   console.log("coord test" + coord);
   console.log(coord);
-  //console.log(coord.Feature.properties)
-  var canada = Object.values(coord.geometry.coordinates);
-  console.log(canada);
 
+  testJson(data.features);
   circlePlot(coord);
 
 });
+function testJson(features) {
+        console.log(features);
+        console.log(`test 1${features.properties.place}`);
+        console.log(feature.geometry.coordinates);
+};
+
+
+
 
         // var countries = d3.json(queryUrl, function(data) {
         //   console.log(data.features);
@@ -76,9 +82,15 @@ d3.json(queryUrl, function(data) {
   // Loop through the cities array and create one marker for each city object
 
 function circlePlot(earthquakeData) {
+  console.log(earthquakeData);
+  console.log(earthquakeData['Feature']['properties'])
+  
 
-    console.log(earthquakeData);
-    console.log(features.properties);
+            
+
+
+    //console.log(earthquakeData[geometry][coordinates]);
+    //console.log(features.properties);
     //console.log(Object.values(feature));
   
 };
