@@ -5,17 +5,17 @@ console.log("test connection 2")
 // Create a map object
 
 var myMap = L.map("map", {
-    center: [15.5994, -28.6731],
+    center: [42.574444444, -92.786666666],
     zoom: 2
 
   });
-  // // Create a circle and pass in some initial options ---- for fun
-  // L.circle([42.574444444, -92.786666666], {
-  //   color: "green",
-  //   fillColor: "green",
-  //   fillOpacity: 0.75,
-  //   radius: 500
-  // }).addTo(myMap);
+  // Create a circle and pass in some initial options ---- for fun
+  L.circle([42.574444444, -92.786666666], {
+    color: "green",
+    fillColor: "green",
+    fillOpacity: 0.75,
+    radius: 500
+  }).bindPopup("<center><h3>The Sacred Acer </h3>").addTo(myMap);
 
 
 
@@ -78,22 +78,23 @@ function testJson(features){
 
 
 function circPlot(features) {
+      var popRad =[]
       for (var i = 0; i < features.length; i++) {
           console.log(features.lenght);
 
           // Conditionals for countries points
           var color = "";
-          if (features[i].properties.mag > 8) {
+          if (features[i].properties.mag > 7) {
             color = "red";
           }
           else if (features[i].properties.mag > 5) {
-            color = "orange";
+            color = "brown";
           }
           else if (features[i].properties.mag > 4) {
             color = "yellow";
           }
           else {
-            color = "green";
+            color = "white";
           }
         
           // // Add circles to map
@@ -102,9 +103,10 @@ function circPlot(features) {
             color: "red",
             fillColor: color,
             // Adjust radius
-            radius: 15000 * features[i].geometry.coordinates.pop() //countries[i].points * 1500
+          
+            radius: 10000 * features[i].geometry.coordinates.pop() //countries[i].points * 1500
             
-          }).bindPopup("<h1>" + features[i].properties.place + "</h1> <hr> <h1>Points: "  + "</h1>").addTo(myMap);
+          }).bindPopup("<h3>" + features[i].properties.place + "</h3> <hr> <center><h3>Mag: "+ features[i].properties.mag  + "</h3>").addTo(myMap);
 
           console.log(`${[i]}  test place:     ${features[i].properties.place}`);
           console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
