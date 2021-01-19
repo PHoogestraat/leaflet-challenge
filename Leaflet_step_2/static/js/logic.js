@@ -5,17 +5,17 @@ console.log("test connection 2")
 // Create a map object
 
 var myMap = L.map("map", {
-    center: [42.574444444, -92.786666666],
+    center: [15.5994, -28.6731],
     zoom: 2
 
   });
-  // Create a circle and pass in some initial options ---- for fun
-  L.circle([42.574444444, -92.786666666], {
-    color: "green",
-    fillColor: "green",
-    fillOpacity: 0.75,
-    radius: 500
-  }).addTo(myMap);
+  // // Create a circle and pass in some initial options ---- for fun
+  // L.circle([42.574444444, -92.786666666], {
+  //   color: "green",
+  //   fillColor: "green",
+  //   fillOpacity: 0.75,
+  //   radius: 500
+  // }).addTo(myMap);
 
 
 
@@ -40,7 +40,7 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/signif
 // Perform a GET request to the query URL   **** creates anyonmos function to store json data as data.features
 d3.json(queryUrl, function(data) {
   var coord = [];
-
+  
 
   //console.log(data.features.geometry.coordinates);
   
@@ -49,80 +49,65 @@ d3.json(queryUrl, function(data) {
   console.log(coord);
 
   testJson(data.features);
-  circlePlot(coord);
+  circPlot(data.features);
+  //test2Json(data.features);
 
-});
-function testJson(features) {
-        console.log("baseline test");
-        console.log(features); // works
-        console.log(`test 1${features.properties.place}`);
-        console.log(Object.feature.geometry.coordinates);
+
+}); 
+
+function testJson(features){
+      console.log(features.length);
+      //console.log(features.geometry.place.lenght);
+      // console.log("baseline test");
+      // console.log(features[0].properties.place); // works
+
+      console.log(`test 1:     ${features[0].properties.place}`);
+      console.log(`test 2:    ${features[0].geometry.coordinates}`);
+      console.log(`test 2:    ${features[0].properties.mag}`);
+
+
+
+      
+      
 };
-
-
-
-
-        // var countries = d3.json(queryUrl, function(data) {
-        //   console.log(data.features);
-        //   //console.log(data.features.geometry.coordinates);    Why does this not generate the percise cordiantes?
-        //   console.log(`earthquake: ${countries}`);              // Why does this not produce the same as line 42
-        //   console.log(countries);              // Why does this not produce the same as line 42
-        //   //circleFeatures(data.features);
-        // });
-
-
-
-
-
-
-
-
-
 
   //**************************************************************************************** */
   // Loop through the cities array and create one marker for each city object
 
-function circlePlot(earthquakeData) {
-  console.log(earthquakeData);
-  console.log(earthquakeData['Feature']['properties'])
-  
 
+
+
+function circPlot(features) {
+      for (var i = 0; i < features.length; i++) {
+          console.log(features.lenght);
+
+          // Conditionals for countries points
+          var color = "";
+          if (features[i].properties.mag > 8) {
+            color = "red";
+          }
+          else if (features[i].properties.mag > 5) {
+            color = "orange";
+          }
+          else if (features[i].properties.mag > 4) {
+            color = "yellow";
+          }
+          else {
+            color = "green";
+          }
+        
+          // // Add circles to map
+          L.circle(features[i].geometry.coordinates, {
+            fillOpacity: 0.75,
+            color: "red",
+            fillColor: color,
+            // Adjust radius
+            radius: 15000 * features[i].geometry.coordinates.pop() //countries[i].points * 1500
             
+          }).bindPopup("<h1>" + features[i].properties.place + "</h1> <hr> <h1>Points: "  + "</h1>").addTo(myMap);
 
-
-    //console.log(earthquakeData[geometry][coordinates]);
-    //console.log(features.properties);
-    //console.log(Object.values(feature));
-  
-};
-
-
-    // function circPlot(countries){
-    //     for (var i = 0; i < countries.length; i++) {
-            
-    //         // Conditionals for countries points
-    //         var color = "";
-    //         if (countries[i].points > 4) {
-    //           color = "Red";
-    //         }
-    //         else if (countries[i].points > 3) {
-    //           color = "yellow";
-    //         }
-    //         else if (countries[i].points > 2) {
-    //           color = "blue";
-    //         }
-    //         else {
-    //           color = "white";
-    //         }
-          
-    //         // Add circles to map
-    //         L.circle(countries[i].location, {
-    //           fillOpacity: 0.75,
-    //           color: "white",
-    //           fillColor: color,
-    //           // Adjust radius
-    //           radius: countries[i].points * 1500
-    //         }).bindPopup("<h1>" + countries[i].name + "</h1> <hr> <h1>Points: " + countries[i].points + "</h1>").addTo(myMap);
-    //       };
-    //};
+          console.log(`${[i]}  test place:     ${features[i].properties.place}`);
+          console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
+        };
+  };
 //};
