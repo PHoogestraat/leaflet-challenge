@@ -6,7 +6,7 @@ var redNum = 0
 
 var myMap = L.map("map", {
     center: [42.574444444, -92.786666666],
-    zoom: 4
+    zoom: 3
 
   });
   // Create a circle and pass in some initial options ---- for fun
@@ -42,10 +42,10 @@ var info = L.control({
 // Links from USGS GOV 
 
 // significant earthquakes past 7 days-     SMALL DATA SET
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
+//var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
 
 // all earthquakes past 30 days
-//var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
+var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 
 // significant earthquakes past 30 days
 //var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
@@ -85,9 +85,7 @@ function circPlot(features) {
 
       
       for (var i = 0; i < features.length; i++) {
-          //console.log(features.length);
-          // var numbEathquakes = features.lenght
-          // console.log(numbEathquakes);
+
           
           let depthRadius = features[i].geometry.coordinates.pop()
           let magData = features[i].properties.mag
