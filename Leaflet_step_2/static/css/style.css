@@ -10,32 +10,37 @@ html {
 }
 
 .legend {
-  padding: 10px;
+  padding: 18px;
   font-family: Sanchez, serif;
   font-size: 16px;
   font-weight: bold;
-  line-height: 18px;
-  color: #555;
-  background-color: white;
+  line-height: 10px;
+  color: rgb(0, 0, 0);
+  background-color: hsla(0, 5%, 34%, 0.568);
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
-.legend .low {
-  color: #ec8a2e;
+
+.legend .redGr90 {
+  color: #ff0410;
 }
 
-.legend .empty {
-  color: #a0353a;
+.legend .oranGr70 {
+  color: #e28800;
 }
 
-.legend .coming-soon {
-  color: #f4ba48;
+.legend .yellowGr50 {
+  color: #ffee00;
 }
 
-.legend .healthy {
-  color: #1b904f;
+.legend .greenGr30 {
+  color: #1b9103;
 }
 
-.legend .out-of-order {
-  color: #007dff;
+.legend .limeGr10{
+  color: #2eec47;
+}
+
+.legend .whiteLe10{
+  color: #0f0801;
 }

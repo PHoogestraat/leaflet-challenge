@@ -1,6 +1,6 @@
 // test plumbing
 console.log("test connection 2")
-
+var redNum = 0
 //**************************************************************************************** */
 // Create a map object
 
@@ -35,50 +35,11 @@ var info = L.control({
   position: "bottomright"
 });
 
-// // When the layer control is added, insert a div with the class of "legend"
-// info.onAdd = function() {
-//   var div = L.DomUtil.create("div", "legend");
-//   return div;
-// };
-// // Add the info legend to the map
-// info.addTo(myMap);
-
-// //          Function updates data to legend
-// function updateLegend(features) {
-//   console.log(features.length);
-//   var earhtquakeSum = features.length
-  
-//   for (var i = 0; i < features.length; i++) {
-        
-//         //console.log(features[i].geometry.coordinates.pop());
-        
-//         var depthRadiusa = features[i].geometry.coordinates;
-//         //var depthRadiusa = depthRadiusa.lenght;
-//         console.log(`${[i]}  Depth Radius:    ${depthRadiusa}`);
-        
-
-
-//         document.querySelector(".legend").innerHTML = [
-          
-//           "<p><b><center><h3><u>Legend</u></h3></center></b> </p>",
-//           "<p class='number-eathquakes'>Number of Earthquake:    " + earhtquakeSum + "    </p>",
-//           "<p class='coming-soon'>Stations Coming Soon: " + depthRadiusa + "</p>",
-//           // "<p class='empty'>Empty Stations: " + stationCount.EMPTY + "</p>",
-//           // "<p class='low'>Low Stations: " + stationCount.LOW + "</p>",
-//           // "<p class='healthy'>Healthy Stations: " + stationCount.NORMAL + "</p>"
-//         ].join("");
-//   };
-// };
-
-
-
-
-
 
 //**************************************************************************************** */
 
 
-// Country data 
+// Links from USGS GOV 
 
 // significant earthquakes past 7 days-     SMALL DATA SET
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
@@ -102,70 +63,66 @@ d3.json(queryUrl, function(data) {
 
   
 
-  testJson(data.features);
-  circPlot(data.features);
 
-  //updateLegend(data.features)
-  //test2Json(data.features);
+
+  // Plots circles
+  circPlot(data.features);
 
 
 }); 
 
 
-function testJson(features){
-      console.log(features.length);
-      //console.log(features.geometry.place.lenght);
-      // console.log("baseline test");
-      // console.log(features[0].properties.place); // works
-
-      console.log(`test 1:     ${features[0].properties.place}`);
-      console.log(`test 2:    ${features[0].geometry.coordinates}`);
-      console.log(`test 2:    ${features[0].properties.mag}`);     
-
-
-    };
-
   //**************************************************************************************** */
   // Loop through the cities array and create one marker for each city object
 
 function circPlot(features) {
-      
-      
+  var limeCount = 0;   
+  var redCount = 0
+  var orangeCount = 0
+  var yellowCount = 0
+  var darkseagreenCount = 0
+  var whiteCount = 0
 
+      
       for (var i = 0; i < features.length; i++) {
-          console.log(features.length);
-          var numbEathquakes = features.lenght
-          console.log(numbEathquakes);
+          //console.log(features.length);
+          // var numbEathquakes = features.lenght
+          // console.log(numbEathquakes);
           
           let depthRadius = features[i].geometry.coordinates.pop()
           let magData = features[i].properties.mag
           
-          var redNum = 0
+          
           // Conditionals for countries points
           var color = "";
-          if (depthRadius > 90) {
+          if (depthRadius >= 90) {
             color = "red";
-            //var redNum =  redNum++
+            redCount++;
           }
-          else if (depthRadius > 70) {
+          else if (depthRadius >= 70) {
             color = "orange ";
+            orangeCount++;
           }
-          else if (depthRadius > 50) {
+          else if (depthRadius >= 50) {
             color = "yellow";
+            yellowCount++;
           }
 
-          else if (depthRadius > 30) {
+          else if (depthRadius >= 30) {
             color ='darkseagreen';
+            darkseagreenCount;
           }
 
-          else if (depthRadius > 10) {
+          else if (depthRadius >= 10) {
             color ='lime';
-            var redNum =  redNum++
+            limeCount++;
+          
           }
 
           
           else {
             color = 'white';
+            whiteCount++;
           }
           
           var testX ="Eathquake alarm"
@@ -187,73 +144,37 @@ function circPlot(features) {
           console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
           console.log(`${[i]}  Depth Radius:    ${depthRadius}`);
           
-
-          // When the layer control is added, insert a div with the class of "legend"
-          info.onAdd = function() {
-            var div = L.DomUtil.create("div", "legend");
-            return div;
-          };
-          // Add the info legend to the map
-          info.addTo(myMap);
-
+      
+      
+      
+      
+      
           // //          Function updates data to legend
-          // function updateLegend(features) {
-          //   //console.log(features.length);
-          //   //var earhtquakeSum = features.length
-            
-          //   for (var i = 0; i < features.length; i++) {
-                    
+      // When the layer control is added, insert a div with the class of "legend"
+      info.onAdd = function() {
+        var div = L.DomUtil.create("div", "legend");
+        return div;
+      };
+      // Add the info legend to the map
+      info.addTo(myMap);
+      document.querySelector(".legend").innerHTML = [
+        
+            "<p><b><center><h3><u>Legend</u></h3></center></b> </p>",
+            "<p class='number-eathquakes'>Number of Earthquake:" + features.length +  " </p>",
+            "<p class='number-eathquakes'> Depth of quake (Red) >90 meters:    " + redCount + "</p>",
+            "<p class='number-eathquakes'>Depth of quake (orang)> 70  meters:  " + orangeCount + "</p>",
+            "<p class='number-eathquakes'>Depth of quake (yellow)> 50 meters :  " + yellowCount+ "</p>",
+            "<p class='number-eathquakes'>Depth of quake (darksgreen) > 30 meters:  " + darkseagreenCount + "</p>",
+            "<p class='number-eathquakes'>Depth of quake (lime) > 10 meters :  " + limeCount + "</p>",
+            "<p class='number-eathquakes'>Depth of quake (white) < 10 meters :  " + whiteCount + "</p>",
 
-                  
-
-
-
-
-        document.querySelector(".legend").innerHTML = [
-          
-              "<p><b><center><h3><u>Legend</u></h3></center></b> </p>",
-              "<p class='number-eathquakes'>Number of Earthquake:    " + features.length + "    </p>",
-              //"<p class='coming-soon'> High Ground: " + redNumb + "</p>",
-              // "<p class='empty'>Empty Stations: " + stationCount.EMPTY + "</p>",
-              // "<p class='low'>Low Stations: " + stationCount.LOW + "</p>",
-              // "<p class='healthy'>Healthy Stations: " + stationCount.NORMAL + "</p>"
-        ].join("");
+      ].join("");
 
 
 
 
         }
+   
 };
 
 
-  /////////////////  legend
-  
-// Create legend
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Update the legend's innerHTML with the last updated time and station count
-// function updateLegend(depthRadius, stationCount) {
-//   document.querySelector(".legend").innerHTML = [
-//     "<p>Updated: " + moment.unix(time).format("h:mm:ss A") + "</p>",
-//     "<p class='out-of-order'>Out of Order Stations: " + stationCount.OUT_OF_ORDER + "</p>",
-//     "<p class='coming-soon'>Stations Coming Soon: " + stationCount.COMING_SOON + "</p>",
-//     "<p class='empty'>Empty Stations: " + stationCount.EMPTY + "</p>",
-//     "<p class='low'>Low Stations: " + stationCount.LOW + "</p>",
-//     "<p class='healthy'>Healthy Stations: " + stationCount.NORMAL + "</p>"
-//   ].join("");
-// }
