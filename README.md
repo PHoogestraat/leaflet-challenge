@@ -10,7 +10,7 @@
   [Earthquake Webpage](https://phoogestraat.github.io/leaflet-challenge/)
   
   
-  * For larger data sets (>10,000), loading time may take up to 10 seconds.
+  * For larger data sets (>10,000), loading time may take <u>up to 10 seconds</u>.
   
   * Depth of the earth corresponds to a range of colors form red (high depth) to white (low depth).
   
