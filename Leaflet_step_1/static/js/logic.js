@@ -1,156 +1,179 @@
 // test plumbing
-console.log("test connection")
+console.log("test connection 2")
+var redNum = 0
+//**************************************************************************************** */
+// Create a map object
+
+var myMap = L.map("map", {
+    center: [42.574444444, -92.786666666],
+    zoom: 4
+
+  });
+  // Create a circle and pass in some initial options ---- for fun
+  L.circle([42.574444444, -92.786666666], {
+    color: "black",
+    fillColor: "yellow",
+    fillOpacity: 0.85,
+    radius: 1000
+  }).bindPopup("<center><h3>The Sacred Acer </h3>").addTo(myMap);
 
 
-// Earthquake JSON URL ###############################################################################################
-// significant earthquakes past 7 days
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
 
-// all earthquakes past 7 days
-//var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson";
+  L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    id: "mapbox/streets-v11",
+    accessToken: API_KEY
+  }).addTo(myMap);
+
+// Legend??????????????????????????????????????????
+//        Code below creates a div called legend so data can be added
+// Create a legend to display information about our map
+var info = L.control({
+  position: "bottomright"
+});
+
+
+//**************************************************************************************** */
+
+
+// Links from USGS GOV 
+
+// significant earthquakes past 7 days-     SMALL DATA SET
+//var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
+
+// all earthquakes past 30 days
+var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 
 // significant earthquakes past 30 days
 //var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson";
 
-// all earthquakes past 30 days
-//var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
-
-// Earthquake JSON URL ###############################################################################################
-
-
-
 // Perform a GET request to the query URL   **** creates anyonmos function to store json data as data.features
 d3.json(queryUrl, function(data) {
-    console.log(data.features);
-    
-    //console.log(data.features.geometry.coordinates);
-    //console.log(data.features.properties.place);
-    createFeatures(data.features);
-    //circleFeatures(data.features);
-});
-
-
-function createFeatures(earthquakeData) {
-    
-    // Define a function we want to run once for each feature in the features array
-    // Give each feature a popup describing the place and time of the earthquake
-    function onEachFeature(feature, layer) {
-        layer.bindPopup("<h3>" + (feature.properties.place) +
-            "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
-        console.log(feature.geometry.coordinates)
-    }
+  var coord = [];
   
-    // Create a GeoJSON layer containing the features array on the earthquakeData object
-    // Run the onEachFeature function once for each piece of data in the array
-    var earthquakes = L.geoJSON(earthquakeData, {
-      onEachFeature: onEachFeature 
-    
-    });
+
+  //console.log(data.features.geometry.coordinates);
+  
+  var coord = data.features
+  console.log("coord test for variable coord");
+  console.log(coord);
 
   
-    // Sending our earthquakes layer to the createMap function
-    createMap(earthquakes);
 
-};
 
-    // ********************************************************************************
-    // Basic map
 
-    function createMap(earthquakes) {
-        // Define a function we want to run once for each feature in the features array
-        // Give each feature a popup describing the place and time of the earthquake
-        function onEachFeature(feature, layer) {
-            layer.bindPopup("<h3>" + feature.properties.place +
-            "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
-        }
-        // Create a GeoJSON layer containing the features array on the earthquakeData object
-        // Run the onEachFeature function once for each piece of data in the array
-        var earthquakes = L.geoJSON(earthquakeData, {
-            onEachFeature: onEachFeature
-            });
-        
-        // Sending our earthquakes layer to the createMap function
-        createMap(earthquakes);
-    };
+  // Plots circles
+  circPlot(data.features);
 
-    function createMap(earthquakes) {
 
-        // Define streetmap and darkmap layers
-        var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-          attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-          tileSize: 512,
-          maxZoom: 18,
-          zoomOffset: -1,
-          id: "mapbox/streets-v11",
-          accessToken: API_KEY
-        });
+}); 
+
+
+  //**************************************************************************************** */
+  // Loop through the cities array and create one marker for each city object
+
+function circPlot(features) {
+  var limeCount = 0;   
+  var redCount = 0
+  var orangeCount = 0
+  var yellowCount = 0
+  var darkseagreenCount = 0
+  var whiteCount = 0
+
       
-        var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-          attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-          maxZoom: 18,
-          id: "dark-v10",
-          accessToken: API_KEY
-        });
-      
-        // Define a baseMaps object to hold our base layers
-        var baseMaps = {
-          "Street Map": streetmap,
-          "Dark Map": darkmap
-        };
-      
-        // Create overlay object to hold our overlay layer
-        var overlayMaps = {
-          Earthquakes: earthquakes
-        };
-      
-        // Create our map, giving it the streetmap and earthquakes layers to display on load
-        var myMap = L.map("map", {
-          center: [
-            42.574444444, -92.786666666
-          ],
-          zoom: 4,
-          layers: [streetmap, earthquakes]
-        });
-        
-        // Create a circle and pass in some initial options ---- for fun
-        L.circle([42.574444444, -92.786666666], {
-            color: "green",
-            fillColor: "green",
+      for (var i = 0; i < features.length; i++) {
+
+          
+          let depthRadius = features[i].geometry.coordinates.pop()
+          let magData = features[i].properties.mag
+          
+          
+          // Conditionals for countries points
+          var color = "";
+          if (depthRadius >= 90) {
+            color = "red";
+            redCount++;
+          }
+          else if (depthRadius >= 70) {
+            color = "orange ";
+            orangeCount++;
+          }
+          else if (depthRadius >= 50) {
+            color = "yellow";
+            yellowCount++;
+          }
+
+          else if (depthRadius >= 30) {
+            color ='darkseagreen';
+            darkseagreenCount;
+          }
+
+          else if (depthRadius >= 10) {
+            color ='lime';
+            limeCount++;
+          
+          }
+
+          
+          else {
+            color = 'white';
+            whiteCount++;
+          }
+          
+          //var testX ="Eathquake alarm"
+          //let depthRadius = features[i].geometry.coordinates.pop()
+          
+
+          // // Add circles to map
+          L.circle(features[i].geometry.coordinates.reverse(), {
             fillOpacity: 0.75,
-            radius: 500
-        }).addTo(myMap);
+            color: "red",
+            fillColor: color,
+            // Adjust radius
+          
+            radius: 6500 * magData 
+            
+          }).bindPopup("<h3>" + features[i].properties.place + "</h3> <hr> <center><h3>Mag: "+ features[i].properties.mag  + "</h3>").addTo(myMap);
 
-        // Create a layer control
-        // Pass in our baseMaps and overlayMaps
-        // Add the layer control to the map
-        L.control.layers(baseMaps, overlayMaps, {
-          collapsed: false
-        }).addTo(myMap);
-    };
+          // console.log(`${[i]}  test place:     ${features[i].properties.place}`);
+          // console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
+          // console.log(`${[i]}  Depth Radius:    ${depthRadius}`);
+          
+      
+      
+      
+      
+      
+          // //          Function updates data to legend
+      // When the layer control is added, insert a div with the class of "legend"
+      info.onAdd = function() {
+        var div = L.DomUtil.create("div", "legend");
+        return div;
+      };
+      // Add the info legend to the map
+      info.addTo(myMap);
+      document.querySelector(".legend").innerHTML = [
         
-// Loop through the cities array and create one marker for each city object
+            "<p><b><center><h2><u>Legend</u></h2></center></b> </p>",
+            "<p><b><center><h3>Updated every half hour from USGS</h3></center></b> </p>",
+            "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
+            "<p class='redGr90'> Quake Depth (Red) > 90 meters:    " +  redCount  + "</p>",
+            "<p class='oranGr70'>Quake Depth (Orang) > 70  meters:  " + orangeCount + "</p>",
+            "<p class='yellowGr50'>Quake Depth (Yellow) > 50 meters :  " + yellowCount+ "</p>",
+            "<p class='greenGr30'>Quake Depth (Darksgreen) > 30 meters:  " + darkseagreenCount + "</p>",
+            "<p class='limeGr10'>Quake Depth  (Lime) > 10 meters :  " + limeCount + "</p>",
+            "<p class='whiteLe10'>Quake Depth (White) < 10 meters :  " + whiteCount + "</p>",
+
+      ].join("");
 
 
-function circleFeatures(xfeature) {
-    console.log(xfeature);
-    console.log(xfeature.geometry.coordinates);
-    var cord = []
-    var cordPop =[]
-    var actCord =[]
-    // cord = feature.geometry.coordinates
-    // cordPop = feature.geometry.coordinates.pop()
-    // actCord = feature.geometry.coordinates
-    // console.log("variable cordPop:" + cordPop);
-    // console.log("Desired Coordinates actCord:" + actCord)
-    //     for (var i = 0; i < cities.length; i++) {
-    //         L.circle(cities[i].location, {
-    //         fillOpacity: 0.75,
-    //         color: "white",
-    //         fillColor: "purple",
-    //         // Setting our circle's radius equal to the output of our markerSize function
-    //         // This will make our marker's size proportionate to its population
-    //         radius: markerSize(cities[i].population)
-    //         }).bindPopup("<h1>" + cities[i].name + "</h1> <hr> <h3>Population: " + cities[i].population + "</h3>").addTo(myMap);
-     
+
+
+        }
+   
 };
+
 
