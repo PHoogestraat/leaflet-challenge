@@ -51,8 +51,8 @@ Your first task is to visualize an earthquake data set.
   
   * Depth of the earth corresponds to a range of colors form red (high depth) to white (low depth).
   
-  * Radious of each circle increases with magnitude of earthquake.
+  * Radius of each circle increases with magnitude of earthquake.
   
-  * A markere idenifies the earthquake with the largest magnitude.
+  * A marker idenifies the earthquake with the largest magnitude.
 
   * Include popups that provide additional information about the earthquake when a marker is clicked.
