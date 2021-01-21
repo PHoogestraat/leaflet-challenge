@@ -6,7 +6,7 @@ var redNum = 0
 
 var myMap = L.map("map", {
     center: [42.574444444, -92.786666666],
-    zoom: 3
+    zoom: 4
 
   });
   // Create a circle and pass in some initial options ---- for fun
@@ -123,7 +123,7 @@ function circPlot(features) {
             whiteCount++;
           }
           
-          var testX ="Eathquake alarm"
+          //var testX ="Eathquake alarm"
           //let depthRadius = features[i].geometry.coordinates.pop()
           
 
@@ -134,13 +134,13 @@ function circPlot(features) {
             fillColor: color,
             // Adjust radius
           
-            radius: 6500 * magData //countries[i].points * 1500
+            radius: 6500 * magData 
             
           }).bindPopup("<h3>" + features[i].properties.place + "</h3> <hr> <center><h3>Mag: "+ features[i].properties.mag  + "</h3>").addTo(myMap);
 
-          console.log(`${[i]}  test place:     ${features[i].properties.place}`);
-          console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
-          console.log(`${[i]}  Depth Radius:    ${depthRadius}`);
+          // console.log(`${[i]}  test place:     ${features[i].properties.place}`);
+          // console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
+          // console.log(`${[i]}  Depth Radius:    ${depthRadius}`);
           
       
       
@@ -157,14 +157,15 @@ function circPlot(features) {
       info.addTo(myMap);
       document.querySelector(".legend").innerHTML = [
         
-            "<p><b><center><h3><u>Legend</u></h3></center></b> </p>",
-            "<p class='number-eathquakes'>Number of Earthquake:" + features.length +  " </p>",
-            "<p class='number-eathquakes'> Depth of quake (Red) >90 meters:    " + redCount + "</p>",
-            "<p class='number-eathquakes'>Depth of quake (orang)> 70  meters:  " + orangeCount + "</p>",
-            "<p class='number-eathquakes'>Depth of quake (yellow)> 50 meters :  " + yellowCount+ "</p>",
-            "<p class='number-eathquakes'>Depth of quake (darksgreen) > 30 meters:  " + darkseagreenCount + "</p>",
-            "<p class='number-eathquakes'>Depth of quake (lime) > 10 meters :  " + limeCount + "</p>",
-            "<p class='number-eathquakes'>Depth of quake (white) < 10 meters :  " + whiteCount + "</p>",
+            "<p><b><center><h2><u>Legend</u></h2></center></b> </p>",
+            "<p><b><center><h3>Updated every half hour from USGS</h3></center></b> </p>",
+            "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
+            "<p class='redGr90'> Quake Depth (Red) > 90 meters:    " +  redCount  + "</p>",
+            "<p class='oranGr70'>Quake Depth (Orang) > 70  meters:  " + orangeCount + "</p>",
+            "<p class='yellowGr50'>Quake Depth (Yellow) > 50 meters :  " + yellowCount+ "</p>",
+            "<p class='greenGr30'>Quake Depth (Darksgreen) > 30 meters:  " + darkseagreenCount + "</p>",
+            "<p class='limeGr10'>Quake Depth  (Lime) > 10 meters :  " + limeCount + "</p>",
+            "<p class='whiteLe10'>Quake Depth (White) < 10 meters :  " + whiteCount + "</p>",
 
       ].join("");
 
