@@ -4,7 +4,7 @@
 
 
 
-  ![Quake](https://media.giphy.com/media/Fa8w0Lyd0guI0/giphy.gif) 
+  ![Quake](https://media.giphy.com/media/MwK2rCO5m2WVq/giphy.gif) 
 
 # Link to final solution:
   [Earthquake Webpage](https://phoogestraat.github.io/leaflet-challenge/)
