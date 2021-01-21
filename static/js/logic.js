@@ -15,7 +15,7 @@ var myMap = L.map("map", {
     fillColor: "yellow",
     fillOpacity: 0.85,
     radius: 1000
-  }).bindPopup("<center><h3>The Sacred Acer </h3>").addTo(myMap);
+  }).bindPopup("<center><h2>The Sacred Acer </h2>").addTo(myMap);
 
 
 
@@ -35,6 +35,13 @@ var info = L.control({
   position: "topright"
 });
 
+// Legend??????????????????????????????????????????
+//        Code below creates a div called legend so data can be added
+// Create a legend to display information about our map
+var infoMAG = L.control({
+  position: "bottomright"
+});
+
 
 //**************************************************************************************** */
 
@@ -44,7 +51,7 @@ var info = L.control({
 // significant earthquakes past 7 days-     SMALL DATA SET
 //var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson";
 
-// all earthquakes past 30 days
+// all earthquakes past 30 days             LARGE DATA SET
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson";
 
 // significant earthquakes past 30 days
@@ -76,6 +83,8 @@ d3.json(queryUrl, function(data) {
   // Loop through the cities array and create one marker for each city object
 
 function circPlot(features) {
+  
+  // Depth count
   var limeCount = 0;   
   var redCount = 0
   var orangeCount = 0
@@ -83,7 +92,15 @@ function circPlot(features) {
   var darkseagreenCount = 0
   var whiteCount = 0
 
-      
+  
+  // Magnitude count
+  var sixMagCount =0
+  var fiveMagCount =0
+  var fourMagCount =0
+  var threMagCount =0
+  
+  var smallMagCount =0
+
       for (var i = 0; i < features.length; i++) {
 
           
@@ -91,7 +108,7 @@ function circPlot(features) {
           let magData = features[i].properties.mag
           
           
-          // Conditionals for countries points
+          // Conditionals for quake Depth
           var color = "";
           if (depthRadius >= 90) {
             color = "red";
@@ -123,6 +140,33 @@ function circPlot(features) {
             whiteCount++;
           }
           
+
+
+          // Conditionals for Magnituted
+          
+          if (magData >= 6) {
+        
+            sixMagCount++;
+          }
+          else if (magData>= 5) {
+            color = "orange ";
+            fiveMagCount++;
+          }
+          else if (magData >= 4) {
+           
+            fourMagCount++;
+          }
+
+          else if (magData >= 3) {
+            color ='darkseagreen';
+            threMagCount++;
+          }
+
+          
+          else {
+            
+            smallMagCount++;
+          }
           //var testX ="Eathquake alarm"
           //let depthRadius = features[i].geometry.coordinates.pop()
           
@@ -136,7 +180,7 @@ function circPlot(features) {
           
             radius: 6500 * magData 
             
-          }).bindPopup("<h3>" + features[i].properties.place + "</h3> <hr> <center><h3>Mag: "+ features[i].properties.mag  + "</h3>").addTo(myMap);
+          }).bindPopup("<h2>" + features[i].properties.place + "</h2> <hr> <center><h2>Mag: "+ features[i].properties.mag  + "</h2>").addTo(myMap);
 
           // console.log(`${[i]}  test place:     ${features[i].properties.place}`);
           // console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
@@ -153,7 +197,7 @@ function circPlot(features) {
         var div = L.DomUtil.create("div", "legend");
         return div;
       };
-      // Add the info legend to the map
+      // Add the info legend to the map for quake depth
       info.addTo(myMap);
       document.querySelector(".legend").innerHTML = [
         
@@ -169,10 +213,36 @@ function circPlot(features) {
       ].join("");
 
 
+                // //          Function updates data to legend
+      // When the layer control is added, insert a div with the class of "legend"
+      infoMAG.onAdd = function() {
+        var div = L.DomUtil.create("div", "mag");
+        return div;
+      };
+      
+      // Add the info legend to the map for quake depth
+      infoMAG.addTo(myMap);
+      document.querySelector(".mag").innerHTML = [
+        
+            "<p><b><center><h2><u>Magnitude </u></h2></center></b> </p>",
+            "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
+            "<p class='redGr90'> Magnitude > 6 :    " +  sixMagCount  + "</p>",
+            "<p class='oranGr70'> Magnitude > 5 :   " + fiveMagCount + "</p>",
+            "<p class='yellowGr50'> Magnitude > 4 :  " + fourMagCount+ "</p>",
+            "<p class='greenGr30'>Magnitude > 3 :  " + threMagCount + "</p>",
+            "<p class='limeGr10'>Magnitude < 3  :  " + smallMagCount + "</p>",
+            
+
+      ].join("");
 
 
         }
    
+
+
+
+
+
 };
 
 
