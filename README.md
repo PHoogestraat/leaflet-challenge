@@ -1,3 +1,8 @@
+
+   ![Quake](https://media.giphy.com/media/13omBuqHdBWOre/giphy.gif) 
+
+
+
 # Leaflet Homework - Visualizing Data with Leaflet
 
 Webpge deployment
