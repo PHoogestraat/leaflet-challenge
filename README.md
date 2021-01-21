@@ -6,6 +6,22 @@
 
   ![Quake](https://media.giphy.com/media/13omBuqHdBWOre/giphy.gif) 
 
+# Link to final solution:
+  [Earthquake Webpage](https://phoogestraat.github.io/leaflet-challenge/)
+  
+  
+  * For larger data sets (>10,000), loading time may take up to 10 seconds.
+  
+  * Depth of the earth corresponds to a range of colors form red (high depth) to white (low depth).
+  
+  * Radius of each circle increases with magnitude of earthquake.
+  
+  * A marker idenifies the earthquake with the largest magnitude.
+
+  * Include popups that provide additional information about the earthquake when a marker is clicked.
+
+
+
 ## Background
 Welcome to the United States Geological Survey, or USGS for short! The USGS is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment; and the impacts of climate and land-use change. Their scientists develop new methods and tools to supply timely, relevant, and useful information about the Earth and its processes. As a new hire, you will be helping them out with an exciting new project!
 
@@ -42,17 +58,3 @@ Your first task is to visualize an earthquake data set.
 
    * Your visualization should look something like the map above.
 
-- - -
-# Link to final solution:
-  [Earthquake Webpage](https://phoogestraat.github.io/leaflet-challenge/)
-  
-  
-  * For larger data sets (>10,000), loading time may take up to 10 seconds.
-  
-  * Depth of the earth corresponds to a range of colors form red (high depth) to white (low depth).
-  
-  * Radius of each circle increases with magnitude of earthquake.
-  
-  * A marker idenifies the earthquake with the largest magnitude.
-
-  * Include popups that provide additional information about the earthquake when a marker is clicked.
