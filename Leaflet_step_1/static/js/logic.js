@@ -98,8 +98,10 @@ function circPlot(features) {
   var fiveMagCount =0
   var fourMagCount =0
   var threMagCount =0
-  
   var smallMagCount =0
+  // Variables for biggest earthquake
+  var bigMag = 0
+  var bigMagLocation = []
 
       for (var i = 0; i < features.length; i++) {
 
@@ -145,31 +147,33 @@ function circPlot(features) {
           // Conditionals for Magnituted
           
           if (magData >= 6) {
-        
             sixMagCount++;
           }
           else if (magData>= 5) {
             color = "orange ";
             fiveMagCount++;
           }
-          else if (magData >= 4) {
-           
+          else if (magData >= 4) {         
             fourMagCount++;
           }
-
           else if (magData >= 3) {
             color ='darkseagreen';
             threMagCount++;
-          }
-
-          
-          else {
-            
+          }          
+          else {        
             smallMagCount++;
           }
           //var testX ="Eathquake alarm"
           //let depthRadius = features[i].geometry.coordinates.pop()
           
+          // find the biggest earhquak
+         
+          if (magData >= bigMag ){
+            bigMag = magData;
+            bigMagLocation = features[i].properties.place;
+          
+          };
+
 
           // // Add circles to map
           L.circle(features[i].geometry.coordinates.reverse(), {
@@ -185,6 +189,7 @@ function circPlot(features) {
           // console.log(`${[i]}  test place:     ${features[i].properties.place}`);
           // console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
           // console.log(`${[i]}  Depth Radius:    ${depthRadius}`);
+          
           
       
       
@@ -226,17 +231,23 @@ function circPlot(features) {
         
             "<p><b><center><h2><u>Magnitude </u></h2></center></b> </p>",
             "<p class='number-eathquakes'><center>Earthquakes:" + features.length +  " </center></p>",
-            "<p class='redGr90'> Magnitude > 6 :    " +  sixMagCount  + "</p>",
-            "<p class='oranGr70'> Magnitude > 5 :   " + fiveMagCount + "</p>",
-            "<p class='yellowGr50'> Magnitude > 4 :  " + fourMagCount+ "</p>",
-            "<p class='greenGr30'>Magnitude > 3 :  " + threMagCount + "</p>",
-            "<p class='limeGr10'>Magnitude < 3  :  " + smallMagCount + "</p>",
+            "<p class='redGr90'> Biggest Magnitude : " +bigMag+"</p>",
+            "<p class='redGr90'> Location : "+ bigMagLocation + "</p>",
+            "<p class='redGr90'> Quakes with Magnitude > 6 :    " +  sixMagCount  + "</p>",
+            "<p class='oranGr70'> Quakes with Magnitude > 5 :   " + fiveMagCount + "</p>",
+            "<p class='yellowGr50'> Quakes with Magnitude > 4 :  " + fourMagCount+ "</p>",
+            "<p class='greenGr30'>Quakes with Magnitude > 3 :  " + threMagCount + "</p>",
+            "<p class='limeGr10'>Quakes with Magnitude < 3  :  " + smallMagCount + "</p>",
             
 
       ].join("");
 
 
-        }
+
+
+
+    //console.log(`lodation ${bigMagLocation}: Mag: ${bigMag}`)
+  }
    
 
 
