@@ -32,7 +32,7 @@ var myMap = L.map("map", {
 //        Code below creates a div called legend so data can be added
 // Create a legend to display information about our map
 var info = L.control({
-  position: "bottomright"
+  position: "topright"
 });
 
 
