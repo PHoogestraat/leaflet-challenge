@@ -158,7 +158,6 @@ function circPlot(features) {
       document.querySelector(".legend").innerHTML = [
         
             "<p><b><center><h2><u>Legend</u></h2></center></b> </p>",
-            "<p><b><center><h3>Updated every half hour from USGS</h3></center></b> </p>",
             "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
             "<p class='redGr90'> Quake Depth (Red) > 90 meters:    " +  redCount  + "</p>",
             "<p class='oranGr70'>Quake Depth (Orang) > 70  meters:  " + orangeCount + "</p>",
