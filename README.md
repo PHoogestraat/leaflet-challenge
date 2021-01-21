@@ -16,9 +16,9 @@
   
   * Radius of each circle increases with magnitude of earthquake.
   
-  * A marker idenifies the earthquake with the largest magnitude.
+  * A unique marker idenifies the earthquake with the largest magnitude.
 
-  * Include popups that provide additional information about the earthquake when a marker is clicked.
+  * Popups provide additional information about the earthquake when a marker is clicked.
 
 
 
