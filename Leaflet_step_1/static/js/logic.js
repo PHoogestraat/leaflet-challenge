@@ -18,6 +18,13 @@ var myMap = L.map("map", {
   }).bindPopup("<center><h2>The Sacred Acer </h2>").addTo(myMap);
 
 
+// var marker =   L.marker((bigMagCord), {
+//     color: "black",
+//     fillColor: "yellow",
+//     fillOpacity: 0.85,
+//     radius: 100
+//   }).addTo(myMap);
+
 
   L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -102,6 +109,9 @@ function circPlot(features) {
   // Variables for biggest earthquake
   var bigMag = 0
   var bigMagLocation = []
+  var bigMagCord =[]
+
+
 
       for (var i = 0; i < features.length; i++) {
 
@@ -168,30 +178,32 @@ function circPlot(features) {
           
           // find the biggest earhquak
          
-          if (magData >= bigMag ){
-            bigMag = magData;
-            bigMagLocation = features[i].properties.place;
-          
-          };
+              if (magData >= bigMag ){
+                bigMag = magData;
+                bigMagLocation = features[i].properties.place;
+                bigMagCord = features[i].geometry.coordinates;
+              
+              };
 
 
-          // // Add circles to map
+          // // Add circles to map coresponding to all eathquakes
           L.circle(features[i].geometry.coordinates.reverse(), {
             fillOpacity: 0.75,
             color: "red",
             fillColor: color,
             // Adjust radius
-          
-            radius: 6500 * magData 
-            
-          }).bindPopup("<h2>" + features[i].properties.place + "</h2> <hr> <center><h2>Mag: "+ features[i].properties.mag  + "</h2>").addTo(myMap);
+            radius: 6500 * magData        
+          }).bindPopup("<h2>" + features[i].properties.place + "</h2> <hr> <center><h2> Mag  :  " +  features[i].properties.mag  + "</h2>").addTo(myMap);
 
+
+          // Test code for parameters---- not needed
           // console.log(`${[i]}  test place:     ${features[i].properties.place}`);
           // console.log(`${[i]}  test cordinates:    ${features[i].geometry.coordinates}`);
           // console.log(`${[i]}  Depth Radius:    ${depthRadius}`);
           
           
-      
+          // Puts marker on bigges earthquake 
+
       
       
       
@@ -218,7 +230,7 @@ function circPlot(features) {
       ].join("");
 
 
-                // //          Function updates data to legend
+                // //          Magnatude stats update
       // When the layer control is added, insert a div with the class of "legend"
       infoMAG.onAdd = function() {
         var div = L.DomUtil.create("div", "mag");
@@ -241,18 +253,22 @@ function circPlot(features) {
             
 
       ].join("");
-
-
-
+      var xcord = bigMagCord
+      
+      // var marker = L.marker(bigMagCord, {
+      // }).addTo(myMap); 
+      
+      //marker.bindPopup("<h2>Biggest Earthquake</h2> <hr> <center><h2>"+ bigMagCord  + "</h2>").addTo(myMap); 
 
 
     //console.log(`lodation ${bigMagLocation}: Mag: ${bigMag}`)
-  }
+  };
    
+  //console.log(`test900 ${xcord}`)
 
-
-
-
+  var marker = L.marker(xcord, {
+      }).addTo(myMap); 
+  marker.bindPopup("<center><h2>Biggest Earthquake</h2> <hr> <h2>Magnitude : "+ bigMag + "<hr><h2>LOCATION : "+bigMagLocation+" <h2>").addTo(myMap); 
 
 };
 
