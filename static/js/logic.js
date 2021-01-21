@@ -225,7 +225,7 @@ function circPlot(features) {
       document.querySelector(".mag").innerHTML = [
         
             "<p><b><center><h2><u>Magnitude </u></h2></center></b> </p>",
-            "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
+            "<p class='number-eathquakes'><center>Earthquakes:" + features.length +  " </center></p>",
             "<p class='redGr90'> Magnitude > 6 :    " +  sixMagCount  + "</p>",
             "<p class='oranGr70'> Magnitude > 5 :   " + fiveMagCount + "</p>",
             "<p class='yellowGr50'> Magnitude > 4 :  " + fourMagCount+ "</p>",
