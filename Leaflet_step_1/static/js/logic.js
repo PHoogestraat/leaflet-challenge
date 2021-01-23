@@ -1,6 +1,6 @@
 // test plumbing
 console.log("test connection 2")
-var redNum = 0
+//var redNum = 0
 //**************************************************************************************** */
 // Create a map object
 
@@ -67,21 +67,14 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_mo
 // Perform a GET request to the query URL   **** creates anyonmos function to store json data as data.features
 d3.json(queryUrl, function(data) {
   var coord = [];
-  
+
 
   //console.log(data.features.geometry.coordinates);
-  
   var coord = data.features
   console.log("coord test for variable coord");
   console.log(coord);
-
-  
-
-
-
   // Plots circles
   circPlot(data.features);
-
 
 }); 
 
@@ -111,7 +104,7 @@ function circPlot(features) {
   var bigMagLocation = []
   var bigMagCord =[]
 
-
+      // Nested loop sorts out Radius depth, identifies largest earthquake and plots locaiton, also partions magnitudes into legend
 
       for (var i = 0; i < features.length; i++) {
 
@@ -178,12 +171,12 @@ function circPlot(features) {
           
           // find the biggest earhquak
          
-              if (magData >= bigMag ){
-                bigMag = magData;
-                bigMagLocation = features[i].properties.place;
-                bigMagCord = features[i].geometry.coordinates;
-              
-              };
+          if (magData >= bigMag ){
+            bigMag = magData;
+            bigMagLocation = features[i].properties.place;
+            bigMagCord = features[i].geometry.coordinates;
+          
+          };
 
 
           // // Add circles to map coresponding to all eathquakes
@@ -219,7 +212,7 @@ function circPlot(features) {
       document.querySelector(".legend").innerHTML = [
         
             "<p><b><center><h2><u>Legend</u></h2></center></b> </p>",
-            "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
+            "<p class='number-eathquakes'><center> Depth of Earthquake (meters). </center></p>",
             "<p class='redGr90'> Quake Depth (Red) > 90 meters:    " +  redCount  + "</p>",
             "<p class='oranGr70'>Quake Depth (Orang) > 70  meters:  " + orangeCount + "</p>",
             "<p class='yellowGr50'>Quake Depth (Yellow) > 50 meters :  " + yellowCount+ "</p>",
@@ -242,7 +235,7 @@ function circPlot(features) {
       document.querySelector(".mag").innerHTML = [
         
             "<p><b><center><h2><u>Magnitude </u></h2></center></b> </p>",
-            "<p class='number-eathquakes'><center>Earthquakes:" + features.length +  " </center></p>",
+            "<p class='number-eathquakes'><center>Number of Earthquake:" + features.length +  " </center></p>",
             "<p class='redGr90'> Biggest Magnitude : " +bigMag+"</p>",
             "<p class='redGr90'> Location : "+ bigMagLocation + "</p>",
             "<p class='redGr90'> Quakes with Magnitude > 6 :    " +  sixMagCount  + "</p>",
@@ -253,7 +246,7 @@ function circPlot(features) {
             
 
       ].join("");
-      var xcord = bigMagCord
+      var xcord = bigMagCord  // converts aray to a float
       
       // var marker = L.marker(bigMagCord, {
       // }).addTo(myMap); 
@@ -263,8 +256,10 @@ function circPlot(features) {
 
     //console.log(`lodation ${bigMagLocation}: Mag: ${bigMag}`)
   };
-   
-  //console.log(`test900 ${xcord}`)
+  
+  
+  // console.log(typeof bigMagCord)    Needed to identify variable problem
+  // console.log(`test900 ${xcord}`)
 
   var marker = L.marker(xcord, {
       }).addTo(myMap); 
@@ -272,4 +267,10 @@ function circPlot(features) {
 
 };
 
+
+// typeof used to identify variagle type (i.e. float, string, integer)
+
+// From AKSHITA PARASRAMPURIA to Everyone:  10:48 AM  https://gis.stackexchange.com/questions/133630/adding-leaflet-legend
+
+// From AKSHITA PARASRAMPURIA to Everyone:  10:48 AM https://gis.stackexchange.com/questions/133630/adding-leaflet-legend
 
