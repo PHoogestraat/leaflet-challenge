@@ -32,7 +32,7 @@ The United States Geological Survey (USGS) is responsible for providing scientif
 
 ![2-BasicMap](Images/2-BasicMap.png)
 
-Your first task is to visualize an earthquake data set.
+
 
 1. **Data set**
 
