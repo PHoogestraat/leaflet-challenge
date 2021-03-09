@@ -37,7 +37,7 @@ The USGS provides earthquake data in a number of different formats, updated ever
 
 2. **Import & Visualize the Data**
 
-Use a Leaflet map that plots all of the earthquakes from a data set based on their longitude and latitude.
+A Leaflet map was used to plot all earthquakes from a data set based on their longitude and latitude.
 
    * Data markers reflect the magnitude of the earthquake by their size and and depth of the earth quake by color. Earthquakes with higher magnitudes should appear larger and earthquakes with greater depth should appear darker in color.
 
