@@ -28,9 +28,7 @@ The United States Geological Survey (USGS) is responsible for providing scientif
 
 ## Goal
 
-### Visualization
 
-![2-BasicMap](Images/2-BasicMap.png)
 
 
 
@@ -53,5 +51,8 @@ The United States Geological Survey (USGS) is responsible for providing scientif
 
    * Legend provides context for map data.
 
-   * Visualization resembles map above.
+   * Visualization resembles map below.
 
+### Visualization
+
+![2-BasicMap](Images/2-BasicMap.png)
