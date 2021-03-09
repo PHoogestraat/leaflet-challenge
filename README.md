@@ -28,7 +28,7 @@ The United States Geological Survey (USGS) is responsible for providing scientif
 
 ## Goal
 
-### Level 1: Basic Visualization
+### Visualization
 
 ![2-BasicMap](Images/2-BasicMap.png)
 
