@@ -1,4 +1,4 @@
-# Leaflet Homework - Visualizing Data with Leaflet
+# Visualizing Data with Leaflet
 
   
 
@@ -6,7 +6,7 @@
 
   ![Quake](https://media.giphy.com/media/MwK2rCO5m2WVq/giphy.gif) 
 
-# Link to final solution:
+# Link to webpage:
   [Earthquake Webpage](https://phoogestraat.github.io/leaflet-challenge/)
   
   
